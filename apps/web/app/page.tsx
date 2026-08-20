@@ -19,8 +19,9 @@ import {
 import { analyzeWebsite } from "@/lib/api";
 
 const PRESET_EXAMPLES = [
-  { name: "SaaS Analytics", url: "https://acme-analytics.com", type: "saas" },
+  { name: "SaaS Platform", url: "https://stripe.com", type: "saas" },
   { name: "E-Commerce Apparel", url: "https://nike.com", type: "ecommerce" },
+  { name: "Education & FYP", url: "https://academy.codemyfyp.com", type: "education" },
   { name: "Clinical Healthcare", url: "https://mayoclinic.org", type: "healthcare" },
   { name: "Dev Documentation", url: "https://docs.python.org", type: "documentation" },
 ];
