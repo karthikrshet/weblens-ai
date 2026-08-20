@@ -75,20 +75,25 @@ class ConversationService:
         self.db.add(assistant_msg)
         self.db.flush()
 
-        # 4. Attach Source Citations
+        # 4. Deduplicate and Attach Source Citations
+        seen_urls = set()
+        unique_citations: List[SourceCitation] = []
         for c in citations:
-            src = Source(
-                message_id=assistant_msg.id,
-                chunk_id=c.chunk_id,
-                url=c.url,
-                title=c.title,
-                section=c.section,
-                relevance_score=c.relevance_score,
-                snippet=c.snippet,
-            )
-            self.db.add(src)
+            if c.url and c.url not in seen_urls:
+                seen_urls.add(c.url)
+                unique_citations.append(c)
+                src = Source(
+                    message_id=assistant_msg.id,
+                    chunk_id=c.chunk_id,
+                    url=c.url,
+                    title=c.title or website.name or website.domain,
+                    section=c.section,
+                    relevance_score=c.relevance_score,
+                    snippet=c.snippet,
+                )
+                self.db.add(src)
 
         self.db.commit()
         self.db.refresh(assistant_msg)
 
-        return assistant_msg, citations, tools
+        return assistant_msg, unique_citations, tools

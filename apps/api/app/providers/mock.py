@@ -38,10 +38,24 @@ class MockLLMProvider(LLMProvider):
         # Check if the prompt includes RETRIEVED WEBSITE EVIDENCE
         if "retrieved website evidence:" in prompt_lower:
             evidence_part = prompt.split("RETRIEVED WEBSITE EVIDENCE:")[-1].strip()
-            lines = [l.strip() for l in evidence_part.split("\n") if l.strip() and not l.startswith("---") and len(l) > 30]
+            # Clean header tags like [Title > Section] and Markdown links [text](url)
+            cleaned = re.sub(r"\[[^\]]+>[^\]]+\]", "", evidence_part)
+            cleaned = re.sub(r"\[([^\]]+)\]\([^\)]+\)", r"\1", cleaned)
+            lines = [l.strip() for l in cleaned.split("\n") if l.strip() and not l.startswith("---") and len(l) > 25]
             if lines:
-                summary_excerpt = " ".join(lines[:3])
-                return f"Based on the retrieved website sources: {summary_excerpt[:600]}"
+                # Deduplicate and pick the top most relevant sentences
+                seen = set()
+                unique_points = []
+                for l in lines:
+                    normalized = l.lower()[:40]
+                    if normalized not in seen:
+                        seen.add(normalized)
+                        unique_points.append(l)
+                    if len(unique_points) >= 3:
+                        break
+                
+                bullets = "\n\n".join([f"• {p}" for p in unique_points])
+                return f"Based on the indexed website content:\n\n{bullets}"
 
         if "pricing" in prompt_lower:
             return "Based on the retrieved website sources, the company offers multiple pricing tiers ranging from Starter to Enterprise, with monthly and annual billing options."
