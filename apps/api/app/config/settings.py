@@ -51,11 +51,14 @@ class Settings(BaseSettings):
     MAX_HISTORY_MESSAGES: int = 10
 
     # LLM Provider Configuration
-    LLM_PROVIDER: str = "mock"  # mock | openai | gemini | anthropic
+    LLM_PROVIDER: str = "mock"  # mock | openai | gemini | grok | anthropic
     OPENAI_API_KEY: Optional[str] = None
     OPENAI_MODEL: str = "gpt-4o"
     GEMINI_API_KEY: Optional[str] = None
-    GEMINI_MODEL: str = "gemini-1.5-pro"
+    GEMINI_MODEL: str = "gemini-1.5-flash"
+    XAI_API_KEY: Optional[str] = None
+    GROK_API_KEY: Optional[str] = None
+    GROK_MODEL: str = "grok-beta"
     ANTHROPIC_API_KEY: Optional[str] = None
     ANTHROPIC_MODEL: str = "claude-3-5-sonnet-20241022"
     EMBEDDING_MODEL: str = "text-embedding-3-small"

@@ -13,5 +13,6 @@ numpy>=1.26.4
 rank-bm25>=0.2.2
 python-dotenv>=1.0.1
 openai>=1.14.0
+google-generativeai>=0.8.0
 pytest>=8.1.0
 pytest-asyncio>=0.23.5
