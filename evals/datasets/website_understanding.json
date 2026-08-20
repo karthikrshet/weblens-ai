@@ -1,0 +1,67 @@
+[
+  {
+    "id": "case-01-saas",
+    "url": "https://acme-analytics.com",
+    "name": "Acme Analytics",
+    "expected_type": "saas",
+    "expected_industry": "Cloud Data Platform",
+    "expected_audience": "Data engineers, architects, and CTOs",
+    "questions": [
+      {
+        "question": "What products does Acme Analytics offer?",
+        "expected_topics": ["real-time ETL", "stream processing", "dashboarding", "metrics"],
+        "expected_source_keyword": "products"
+      },
+      {
+        "question": "Tell me about pricing plans.",
+        "expected_topics": ["starter", "enterprise", "pricing tiers"],
+        "expected_source_keyword": "pricing"
+      }
+    ]
+  },
+  {
+    "id": "case-02-ecommerce",
+    "url": "https://nike.com",
+    "name": "Nike",
+    "expected_type": "ecommerce",
+    "expected_industry": "Sportswear & Footwear",
+    "expected_audience": "Athletes, runners, and general consumers",
+    "questions": [
+      {
+        "question": "What kind of merchandise do they sell?",
+        "expected_topics": ["shoes", "apparel", "sports equipment"],
+        "expected_source_keyword": "products"
+      }
+    ]
+  },
+  {
+    "id": "case-03-healthcare",
+    "url": "https://mayoclinic.org",
+    "name": "Mayo Clinic",
+    "expected_type": "healthcare",
+    "expected_industry": "Clinical Medicine & Patient Care",
+    "expected_audience": "Patients, medical professionals, and researchers",
+    "questions": [
+      {
+        "question": "What medical services are available?",
+        "expected_topics": ["patient care", "clinical appointments", "health resources"],
+        "expected_source_keyword": "services"
+      }
+    ]
+  },
+  {
+    "id": "case-04-devdocs",
+    "url": "https://docs.python.org",
+    "name": "Python Documentation",
+    "expected_type": "developer_documentation",
+    "expected_industry": "Programming & Software Engineering",
+    "expected_audience": "Software developers and programmers",
+    "questions": [
+      {
+        "question": "What does this documentation cover?",
+        "expected_topics": ["standard library", "tutorial", "language reference"],
+        "expected_source_keyword": "docs"
+      }
+    ]
+  }
+]

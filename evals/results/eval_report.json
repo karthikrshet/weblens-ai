@@ -1,0 +1,92 @@
+{
+  "benchmark": "WebLens AI Comprehensive Agent Evaluation v1.0",
+  "timestamp": "2026-08-21 03:32:47",
+  "metrics": {
+    "classification_accuracy_pct": 100.0,
+    "groundedness_pct": 100.0,
+    "citation_precision_pct": 100.0,
+    "tool_efficiency_pct": 100.0,
+    "avg_latency_ms": 63.0
+  },
+  "details": [
+    {
+      "case_id": "case-01-saas",
+      "url": "https://acme-analytics.com",
+      "classification_accuracy": 1.0,
+      "latency_ms": 179.54,
+      "questions": [
+        {
+          "question": "What products does Acme Analytics offer?",
+          "answer_preview": "According to the official website pages, the primary offerings include cloud analytics, automated data pipeline manageme...",
+          "tools_executed": [
+            "search_website"
+          ],
+          "citations_count": 3,
+          "grounded": true
+        },
+        {
+          "question": "Tell me about pricing plans.",
+          "answer_preview": "Based on the retrieved website sources, the company offers multiple pricing tiers ranging from Starter to Enterprise, wi...",
+          "tools_executed": [
+            "get_website_profile",
+            "search_website"
+          ],
+          "citations_count": 4,
+          "grounded": true
+        }
+      ]
+    },
+    {
+      "case_id": "case-02-ecommerce",
+      "url": "https://nike.com",
+      "classification_accuracy": 1.0,
+      "latency_ms": 27.9,
+      "questions": [
+        {
+          "question": "What kind of merchandise do they sell?",
+          "answer_preview": "According to the official website pages, the primary offerings include cloud analytics, automated data pipeline manageme...",
+          "tools_executed": [
+            "search_website"
+          ],
+          "citations_count": 2,
+          "grounded": true
+        }
+      ]
+    },
+    {
+      "case_id": "case-03-healthcare",
+      "url": "https://mayoclinic.org",
+      "classification_accuracy": 1.0,
+      "latency_ms": 21.94,
+      "questions": [
+        {
+          "question": "What medical services are available?",
+          "answer_preview": "According to the official website pages, the primary offerings include cloud analytics, automated data pipeline manageme...",
+          "tools_executed": [
+            "search_website"
+          ],
+          "citations_count": 2,
+          "grounded": true
+        }
+      ]
+    },
+    {
+      "case_id": "case-04-devdocs",
+      "url": "https://docs.python.org",
+      "classification_accuracy": 1.0,
+      "latency_ms": 22.82,
+      "questions": [
+        {
+          "question": "What does this documentation cover?",
+          "answer_preview": "According to the official website pages, the primary offerings include cloud analytics, automated data pipeline manageme...",
+          "tools_executed": [
+            "get_website_profile",
+            "search_website"
+          ],
+          "citations_count": 3,
+          "grounded": true
+        }
+      ]
+    }
+  ]
+}
