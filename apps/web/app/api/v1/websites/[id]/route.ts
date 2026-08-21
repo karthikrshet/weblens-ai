@@ -11,7 +11,17 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     return NextResponse.json(data, { status: res.status });
   }
 
-  const website = websiteStore.get(id);
+  let website = websiteStore.get(id);
+  if (!website) {
+    try {
+      const decodedUrl = Buffer.from(id, "base64url").toString("utf-8");
+      if (decodedUrl.startsWith("http://") || decodedUrl.startsWith("https://")) {
+        const { ingestWebsite } = await import("@/lib/serverless-engine");
+        website = await ingestWebsite(decodedUrl);
+      }
+    } catch {}
+  }
+
   if (!website) {
     return NextResponse.json({ detail: "Website profile not found" }, { status: 404 });
   }

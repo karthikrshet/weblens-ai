@@ -214,7 +214,7 @@ export async function ingestWebsite(targetUrl: string): Promise<WebsiteEntity> {
   const purpose = description || `Official platform offering ${classification.industry.toLowerCase()} solutions.`;
   const summary = `${cleanName} operates in the ${classification.industry} sector. ${purpose}`;
 
-  const websiteId = Buffer.from(targetUrl).toString("base64url").slice(0, 16);
+  const websiteId = Buffer.from(targetUrl).toString("base64url");
   const now = new Date().toISOString();
 
   const entity: WebsiteEntity = {

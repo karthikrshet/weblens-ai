@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { conversationStore, websiteStore } from "@/lib/serverless-engine";
+import { conversationStore, websiteStore, ingestWebsite } from "@/lib/serverless-engine";
 
 export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
   try {
@@ -22,12 +22,40 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
       return NextResponse.json(data, { status: res.status });
     }
 
-    const conv = conversationStore.get(conversationId);
+    let conv = conversationStore.get(conversationId);
     if (!conv) {
-      return NextResponse.json({ detail: "Conversation not found" }, { status: 404 });
+      const rawId = conversationId.replace(/^conv-/, "");
+      let website = websiteStore.get(rawId);
+      if (!website) {
+        try {
+          const decodedUrl = Buffer.from(rawId, "base64url").toString("utf-8");
+          if (decodedUrl.startsWith("http://") || decodedUrl.startsWith("https://")) {
+            website = await ingestWebsite(decodedUrl);
+          }
+        } catch {}
+      }
+
+      const now = new Date().toISOString();
+      conv = {
+        id: conversationId,
+        website_id: rawId,
+        title: `Chat with ${website?.name || "Website"}`,
+        created_at: now,
+        updated_at: now,
+        messages: [],
+      };
+      conversationStore.set(conversationId, conv);
     }
 
-    const website = websiteStore.get(conv.website_id);
+    let website = websiteStore.get(conv.website_id);
+    if (!website) {
+      try {
+        const decodedUrl = Buffer.from(conv.website_id, "base64url").toString("utf-8");
+        if (decodedUrl.startsWith("http://") || decodedUrl.startsWith("https://")) {
+          website = await ingestWebsite(decodedUrl);
+        }
+      } catch {}
+    }
     const chunks = website?.raw_chunks || [];
 
     // Keyword relevance search across chunks
